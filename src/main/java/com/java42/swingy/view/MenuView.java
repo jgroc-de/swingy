@@ -2,9 +2,12 @@ package com.java42.swingy.view;
 
 import java.util.List;
 
-import com.java42.swingy.model.Hero;
+import com.java42.swingy.controller.MenuItem;
+import com.java42.swingy.model.hero.Hero;
 
 public interface MenuView extends View {
+
+	public void splashScreen();
 
 	public MenuItem promptForMenuAction(boolean heroIsSet);
 
