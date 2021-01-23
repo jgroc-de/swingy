@@ -16,6 +16,8 @@ public class VilainFactory {
 		case SKELETTON:
 			vilain = new Skeletton(id);
 			break;
+		case DRAGON:
+			vilain = new Dragon(id);
 		default:
 			vilain = new Troll(id);
 		}
@@ -28,13 +30,14 @@ public class VilainFactory {
 		List<Vilain> vilains = new ArrayList<Vilain>();
 		VilainType type;
 		int nbBoss = nb / 20;
+		int nbCopy = nb;
 
 		while (nb-- > 0) {
 			type = VilainType.getRandomType();
 			vilains.add(createVilain(type, nb, (int) (Math.random() * (minLevel + 1) + minLevel)));
 		}
-		while (nbBoss-- > 0) {
-			vilains.add(createVilain(VilainType.getRandomType(), nb, minLevel * 3));
+		while (nbBoss > 0) {
+			vilains.add(createVilain(VilainType.DRAGON, nbCopy + nbBoss--, minLevel + 2));
 		}
 
 		return vilains;

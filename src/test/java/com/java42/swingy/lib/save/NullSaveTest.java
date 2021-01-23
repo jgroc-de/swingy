@@ -10,7 +10,7 @@ import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.model.hero.Mage;
 
 public class NullSaveTest {
-	Save save;
+	HeroDAO save;
 
 	@BeforeEach
 	public void setSave() {

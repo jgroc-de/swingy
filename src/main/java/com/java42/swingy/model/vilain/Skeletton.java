@@ -5,7 +5,7 @@ public class Skeletton extends Vilain {
 		super(id);
 		attackModifier = 3;
 		defModifier = 1;
-		HPModifier = 0;
+		HPModifier = 1;
 		type = VilainType.SKELETTON;
 	}
 

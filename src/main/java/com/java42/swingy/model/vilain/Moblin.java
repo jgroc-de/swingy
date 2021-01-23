@@ -5,7 +5,7 @@ public class Moblin extends Vilain {
 		super(id);
 		attackModifier = 2;
 		defModifier = 1;
-		HPModifier = 1;
+		HPModifier = 2;
 		type = VilainType.MOBLIN;
 	}
 

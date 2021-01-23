@@ -12,7 +12,7 @@ import java.util.List;
 import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.model.hero.HeroFactory;
 
-public class FileSave extends Save {
+public class FileSave extends HeroDAO {
 	String fileName;
 
 	public FileSave(String fileName) throws Exception {

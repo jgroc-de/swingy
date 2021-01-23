@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.java42.swingy.model.hero.Hero;
 
-public class NullSave extends Save {
+public class NullSave extends HeroDAO {
 	public NullSave() {
 		heroes = new ArrayList<Hero>();
 	}

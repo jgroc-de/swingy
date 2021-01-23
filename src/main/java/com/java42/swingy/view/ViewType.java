@@ -1,7 +1,7 @@
 package com.java42.swingy.view;
 
 public enum ViewType {
-	COMMANDLINE(0), GUI(1);
+	CLI(0), GUI(1);
 
 	int value;
 

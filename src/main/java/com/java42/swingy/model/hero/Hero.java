@@ -96,6 +96,7 @@ public abstract class Hero extends LivingCreature {
 	}
 
 	public String toCsv() {
+		// manque artifacts
 		return id + "," + name + "," + getType().getValue() + "," + level + "," + XP + "\n";
 	}
 }

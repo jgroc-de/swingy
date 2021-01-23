@@ -1,22 +1,13 @@
 package com.java42.swingy.view;
 
-import com.java42.swingy.view.commandLine.CommandLineGame;
-import com.java42.swingy.view.commandLine.CommandLineMenu;
-import com.java42.swingy.view.gui.GuiGame;
-import com.java42.swingy.view.gui.GuiMenu;
+import com.java42.swingy.view.cli.CliViewAdaptater;
+import com.java42.swingy.view.gui.GuiViewAdaptater;
 
 public class ViewFactory {
-	public static MenuView getMenuView(ViewType viewType) {
-		if (viewType == ViewType.COMMANDLINE) {
-			return new CommandLineMenu();
+	public static View getView(ViewType viewType) {
+		if (viewType == ViewType.CLI) {
+			return new CliViewAdaptater();
 		}
-		return new GuiMenu();
-	}
-
-	public static GameView getGameView(ViewType viewType) {
-		if (viewType == ViewType.COMMANDLINE) {
-			return new CommandLineGame();
-		}
-		return new GuiGame();
+		return new GuiViewAdaptater();
 	}
 }

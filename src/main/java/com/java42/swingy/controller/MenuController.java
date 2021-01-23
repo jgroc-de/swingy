@@ -2,78 +2,74 @@ package com.java42.swingy.controller;
 
 import java.util.List;
 
-import com.java42.swingy.controller.Swingy.GameState;
-import com.java42.swingy.lib.save.Save;
+import com.java42.swingy.lib.save.HeroDAO;
 import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.model.hero.HeroFactory;
 import com.java42.swingy.model.hero.HeroType;
-import com.java42.swingy.view.MenuView;
+import com.java42.swingy.view.View;
 
 public class MenuController {
-	MenuView menuView;
-	Save save;
+	View view;
+	HeroDAO heroDAO;
 	Swingy controller;
+	Hero hero;
 
-	public MenuController(MenuView menuView, Save save, Swingy controller) {
-		this.menuView = menuView;
-		this.save = save;
+	public MenuController(View view, HeroDAO save, Swingy controller) {
+		this.view = view;
+		view.setMenuController(this);
+		this.heroDAO = save;
 		this.controller = controller;
 	}
 
-	public GameState menuAction(Hero hero) {
-		boolean heroIsSet;
-		MenuItem choice;
+	public void menuAction(Hero hero) {
+		boolean askAgain = true;
 
-		while (true) {
-			heroIsSet = hero != null;
-			choice = menuView.promptForMenuAction(heroIsSet);
-			switch (choice) {
-			case HERO_CREATION:
-				hero = heroCreation();
-				save.saveHero(hero);
-				break;
-			case HERO_SELECTION:
-				hero = heroSelection();
-				break;
-			case PLAY:
-				menuView.startPlaying(hero);
-				if (hero != null) {
-					return GameState.PLAYING;
-				}
-				break;
-			case QUIT:
-				return GameState.END;
-			}
-			controller.setHero(hero);
+		this.hero = hero;
+		while (askAgain) {
+			askAgain = view.promptForMenuAction();
 		}
 	}
 
-	private Hero heroCreation() {
-		Hero createdHero;
-		int heroType = menuView.promptForHeroType();
-		int heroID = save.getNextId();
-		String name = menuView.promptForHeroName();
+	public void startPlaying() {
+		view.startPlaying(hero);
+		if (hero != null) {
+			controller.play(hero);
+		}
+		menuAction(hero);
+	}
+
+	public void quit() {
+		view.quit();
+		System.exit(0);
+	}
+
+	public void createHero(int heroType, String name) {
+		int heroID = heroDAO.getNextId();
 		HeroType heroClass = HeroType.getType(heroType);
 
-		createdHero = HeroFactory.createHero(heroClass, heroID, name);
-		menuView.printHero(createdHero);
-
-		return createdHero;
+		hero = HeroFactory.createHero(heroClass, heroID, name);
+		view.printHero(hero);
+		heroDAO.saveHero(hero);
 	}
 
-	private Hero heroSelection() {
-		List<Hero> heroes = save.getAllHeroes();
-		int heroIndex;
+	public void setHero(Hero hero) {
+		this.hero = hero;
+	}
 
-		if (heroes.isEmpty()) {
-			menuView.printHeroListIsEmpty();
-			return null;
-		}
-		heroIndex = menuView.promptForHeroSelection(heroes) - 1;
+	public void selectHero(int index) {
+		List<Hero> heroes = heroDAO.getAllHeroes();
 		try {
-			return heroes.get(heroIndex);
+			setHero(heroes.get(index - 1));
 		} catch (Exception e) {
-			return null;
+			setHero(null);
 		}
+	}
+
+	public List<Hero> getAllHeroes() {
+		return heroDAO.getAllHeroes();
+	}
+
+	public boolean isSetHero() {
+		return hero != null;
 	}
 }

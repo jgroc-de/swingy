@@ -5,7 +5,7 @@ public class Troll extends Vilain {
 		super(id);
 		attackModifier = 1;
 		defModifier = 1;
-		HPModifier = 2;
+		HPModifier = 3;
 		type = VilainType.TROLL;
 	}
 

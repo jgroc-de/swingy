@@ -15,7 +15,7 @@ public enum MenuItem {
 		return value;
 	}
 
-	public String getLabel(boolean heroIsSet) {
+	public String getLabel() {
 		return label;
 	}
 
@@ -37,5 +37,16 @@ public enum MenuItem {
 		}
 
 		return QUIT;
+	}
+
+	public boolean canDoThis(boolean heroIsSet, boolean noHeroes) {
+		if (this == PLAY && heroIsSet == false) {
+			return false;
+		}
+		if (this == HERO_SELECTION && noHeroes == true) {
+			return false;
+		}
+
+		return true;
 	}
 }

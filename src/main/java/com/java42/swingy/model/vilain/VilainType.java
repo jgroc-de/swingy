@@ -1,7 +1,7 @@
 package com.java42.swingy.model.vilain;
 
 public enum VilainType {
-	TROLL(1), MOBLIN(2), SKELETTON(3);
+	TROLL(1), MOBLIN(2), SKELETTON(3), DRAGON(4);
 
 	int value;
 
