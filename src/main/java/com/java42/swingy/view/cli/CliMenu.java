@@ -76,14 +76,18 @@ public class CliMenu {
 
 	private int promptForHeroType() {
 		String line;
+		int choice;
 
 		line = GameMessages.CLASS + "\n";
 		for (HeroType type : HeroType.values()) {
 			line += "\t[" + type.getValue() + "] " + type + "\n";
 		}
-		println(line);
+		do {
+			println(line);
+			choice = keyboard.nextInt();
+		} while (HeroType.isType(choice) == false);
 
-		return keyboard.nextInt();
+		return choice;
 	}
 
 	private String promptForHeroName() {

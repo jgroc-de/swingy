@@ -31,6 +31,16 @@ public enum HeroType {
 		return value;
 	}
 
+	public static boolean isType(int choice) {
+		for (HeroType type : HeroType.values()) {
+			if (choice == type.getValue()) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 	public static HeroType getType(int heroType) {
 		for (HeroType type : HeroType.values()) {
 			if (type.getValue() == heroType) {

@@ -5,29 +5,29 @@ import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
 public abstract class LivingCreature {
-	@NotNull
+
 	protected int id;
-	@NotNull
+
 	protected String name;
-	@Positive
+
 	protected int level = 1;
-	@PositiveOrZero
+
 	protected int lostHP;
-	@PositiveOrZero
+
 	protected int xOnMap;
-	@PositiveOrZero
+
 	protected int yOnMap;
-	@PositiveOrZero
+
 	int attack = 0;
-	@PositiveOrZero
+
 	int def = 0;
-	@PositiveOrZero
+
 	int HP = 8;
-	@PositiveOrZero
+
 	protected int attackModifier;
-	@PositiveOrZero
+
 	protected int defModifier;
-	@PositiveOrZero
+	
 	protected int HPModifier;
 
 	public int getAttack() {
