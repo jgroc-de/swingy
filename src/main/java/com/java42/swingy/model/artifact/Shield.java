@@ -6,4 +6,8 @@ public class Shield extends Artifact {
 		defModifier = level * quality.getValue();
 		type = ArtifactType.ARMOR;
 	}
+
+	public String getStats() {
+		return "(def: " + getDefModifier() + ")";
+	}
 }

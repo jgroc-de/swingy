@@ -52,14 +52,14 @@ public abstract class Artifact {
 
 	public String toString() {
 		if (level == 0) {
-			return "empty";
+			return "empty ";
 		}
 		return quality + " " + type + " (level: " + level + ") ";
 	}
 
 	public String getDescription() {
-		return toString() + "(atk: " + getAtkModifier() + " - def: " + getDefModifier() + " - HP: " + getHPModifier()
-				+ ")";
+		return toString() + getStats();
 	}
 
+	abstract public String getStats();
 }

@@ -6,4 +6,8 @@ public class Sword extends Artifact {
 		atkModifier = level * quality.getValue();
 		type = ArtifactType.WEAPON;
 	}
+
+	public String getStats() {
+		return "(atk: " + getAtkModifier() + ")";
+	}
 }

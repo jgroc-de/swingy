@@ -6,4 +6,8 @@ public class Helmet extends Artifact {
 		HPModifier = level * quality.getValue();
 		type = ArtifactType.HELM;
 	}
+
+	public String getStats() {
+		return "(hp: " + getHPModifier() + ")";
+	}
 }

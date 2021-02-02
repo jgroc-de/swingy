@@ -14,13 +14,17 @@ public abstract class Hero extends LivingCreature {
 	Artifact sword;
 	Artifact armor;
 
-	public Hero(int id, String name) {
+	public Hero(int id, String name, HeroType type) {
 		this.id = id;
 		lostHP = 0;
 		setName(name);
 		helm = ArtifactFactory.createArtifact(ArtifactType.HELM, ArtifactQuality.WOOD, 0);
 		sword = ArtifactFactory.createArtifact(ArtifactType.WEAPON, ArtifactQuality.WOOD, 0);
 		armor = ArtifactFactory.createArtifact(ArtifactType.ARMOR, ArtifactQuality.WOOD, 0);
+		this.type = type;
+		attackModifier = type.getATK();
+		defModifier = type.getDEF();
+		HPModifier = type.getHP();
 	}
 
 	public void setArtifact(Artifact artifact) {
@@ -98,5 +102,17 @@ public abstract class Hero extends LivingCreature {
 	public String toCsv() {
 		// manque artifacts
 		return id + "," + name + "," + getType().getValue() + "," + level + "," + XP + "\n";
+	}
+
+	public String getBasicInfo() {
+		return "Class: " + toString() + "\nLevel: " + level + "\nXP: " + XP;
+	}
+
+	public String getStats() {
+		return "ATK: " + getAttack() + "\nDEF: " + getDefense() + "\nHP: " + getHP();
+	}
+
+	public String getEquipement() {
+		return sword.getDescription() + "\n" + armor.getDescription() + "\n" + helm.getDescription();
 	}
 }

@@ -1,12 +1,30 @@
 package com.java42.swingy.model.hero;
 
 public enum HeroType {
-	MAGE(1), ROGUE(2), WARIOR(3), GOD(4);
+	MAGE(1, 5, 1, 1), ROGUE(2, 4, 1, 3), WARIOR(3, 2, 4, 2), GOD(4, 10, 10, 10);
 
 	int value;
+	int atk;
+	int def;
+	int hp;
 
-	private HeroType(int value) {
+	private HeroType(int value, int atk, int def, int hp) {
 		this.value = value;
+		this.atk = atk;
+		this.def = def;
+		this.hp = hp;
+	}
+
+	public int getATK() {
+		return atk;
+	}
+
+	public int getDEF() {
+		return def;
+	}
+
+	public int getHP() {
+		return hp;
 	}
 
 	public int getValue() {
@@ -20,6 +38,10 @@ public enum HeroType {
 			}
 		}
 		return HeroType.MAGE;
+	}
+
+	public String getStats() {
+		return "Atk: " + getATK() + "\nDef: " + getDEF() + "\nHP: " + (getHP() + 8);
 	}
 
 }
