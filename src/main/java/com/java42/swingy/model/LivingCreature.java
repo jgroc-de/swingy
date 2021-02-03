@@ -1,9 +1,5 @@
 package com.java42.swingy.model;
 
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
-
 public abstract class LivingCreature {
 
 	protected int id;
@@ -27,7 +23,7 @@ public abstract class LivingCreature {
 	protected int attackModifier;
 
 	protected int defModifier;
-	
+
 	protected int HPModifier;
 
 	public int getAttack() {
@@ -82,5 +78,21 @@ public abstract class LivingCreature {
 		if (lostHP > 0) {
 			this.lostHP += lostHP;
 		}
+	}
+
+	static public boolean isValidName(String name) {
+		if (name.isBlank()) {
+			return false;
+		}
+		if (name.length() > 13) {
+			return false;
+		}
+		for (char letter : name.toCharArray()) {
+			if (Character.isLetterOrDigit(letter) == false) {
+				return false;
+			}
+		}
+
+		return true;
 	}
 }

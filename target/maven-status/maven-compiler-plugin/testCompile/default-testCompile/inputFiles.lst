@@ -1,5 +1,9 @@
-/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/HeroTypes/WarriorTest.java
-/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/XPManager/XPSwingyTest.java
-/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/model/HeroTest.java
-/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/HeroTypes/RogueTest.java
-/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/HeroTypes/MageTest.java
+/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/model/hero/RogueTest.java
+/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/model/hero/WarriorTest.java
+/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/model/artifact/ArtifactTest.java
+/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/lib/XPManager/XPSwingyTest.java
+/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/controller/MenuItemTest.java
+/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/model/hero/MageTest.java
+/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/model/vilain/VilainFactoryTest.java
+/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/lib/map/SquareMapTest.java
+/home/gg/eclipse-workspace/swingy/src/test/java/com/java42/swingy/lib/save/NullSaveTest.java

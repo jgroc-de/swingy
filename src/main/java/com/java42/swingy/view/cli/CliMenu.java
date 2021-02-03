@@ -1,25 +1,22 @@
 package com.java42.swingy.view.cli;
 
 import java.util.List;
-import java.util.Scanner;
 
 import com.java42.swingy.controller.MenuController;
 import com.java42.swingy.controller.MenuItem;
+import com.java42.swingy.lib.IO.Misc;
+import com.java42.swingy.model.LivingCreature;
 import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.model.hero.HeroType;
 import com.java42.swingy.view.GameMessages;
 
 public class CliMenu {
 	String deco = "\n\t\t**************\n";
-	Scanner keyboard = new Scanner(System.in);
+	Misc IOManager = new Misc();
 	MenuController controller;
 
 	public void setMenuController(MenuController controller) {
 		this.controller = controller;
-	}
-
-	private void println(String lineToPrint) {
-		System.out.println(lineToPrint + "\n");
 	}
 
 	private String decorate(String line) {
@@ -31,7 +28,7 @@ public class CliMenu {
 		List<Hero> heroes = controller.getAllHeroes();
 		MenuItem choice;
 
-		choice = getMenuItem(heroIsSet, heroes);
+		choice = promptForMenuItem(heroIsSet, heroes);
 		switch (choice) {
 		case HERO_CREATION:
 			promptForNewHero();
@@ -49,8 +46,8 @@ public class CliMenu {
 		return true;
 	}
 
-	private MenuItem getMenuItem(boolean heroIsSet, List<Hero> heroes) {
-		int itemNumber = -1;
+	private MenuItem promptForMenuItem(boolean heroIsSet, List<Hero> heroes) {
+		int itemNumber;
 		String line;
 
 		line = GameMessages.NUMBER + "\n";
@@ -59,10 +56,10 @@ public class CliMenu {
 				line += "\t[" + menuItem.getValue() + "]: " + menuItem.getLabel() + "\n";
 			}
 		}
-		while (MenuItem.isValidItem(itemNumber) == false) {
-			println(line);
-			itemNumber = keyboard.nextInt();
-		}
+		do {
+			IOManager.println(line);
+			itemNumber = IOManager.getNextNumber();
+		} while (MenuItem.isValidItem(itemNumber) == false);
 
 		return MenuItem.getItem(itemNumber);
 	}
@@ -83,18 +80,25 @@ public class CliMenu {
 			line += "\t[" + type.getValue() + "] " + type + "\n";
 		}
 		do {
-			println(line);
-			choice = keyboard.nextInt();
+			IOManager.println(line);
+			choice = IOManager.getNextNumber();
 		} while (HeroType.isType(choice) == false);
 
 		return choice;
 	}
 
 	private String promptForHeroName() {
-		println(GameMessages.NAME.toString());
+		String name;
+
 		// la récupération précédente étant un nextInt(), il faut vider le buffer
-		keyboard.nextLine();
-		return keyboard.nextLine();
+		IOManager.nextLine();
+		do {
+			System.out.println(GameMessages.NAME.toString());
+			IOManager.println("(only letters and digit, no more than 13 characters)");
+			name = IOManager.nextLine();
+		} while (LivingCreature.isValidName(name) == false);
+
+		return name;
 	}
 
 	private void promptForHeroSelection(List<Hero> heroes) {
@@ -105,34 +109,35 @@ public class CliMenu {
 		for (Hero hero : heroes) {
 			line += "[" + heroIndex++ + "]: " + hero.getSummary() + "\n";
 		}
-		println(line);
-
-		heroIndex = keyboard.nextInt();
+		do {
+			IOManager.println(line);
+			heroIndex = IOManager.getNextNumber();
+		} while (heroIndex < 0 || heroIndex > heroes.size());
 		controller.selectHero(heroIndex);
 	}
 
 	public void splashScreen() {
-		println(decorate(GameMessages.INTRO.toString()));
+		IOManager.println(decorate(GameMessages.INTRO.toString()));
 	}
 
 	public void quit() {
-		println(decorate(GameMessages.ENDING.toString()));
+		IOManager.println(decorate(GameMessages.ENDING.toString()));
 	}
 
 	public void printHero(Hero hero) {
-		println(hero.getFullDescription());
+		IOManager.println(hero.getFullDescription());
 	}
 
 	public void startPlaying(Hero hero) {
 		if (hero != null) {
-			println(GameMessages.GLHF + "\n");
+			IOManager.println(GameMessages.GLHF + "\n");
 			printHero(hero);
 		} else {
-			println(GameMessages.CHOOSE + "\n");
+			IOManager.println(GameMessages.CHOOSE + "\n");
 		}
 	}
 
 	public void printHeroListIsEmpty() {
-		println(GameMessages.EMPTYLIST + "\n");
+		IOManager.println(GameMessages.EMPTYLIST + "\n");
 	}
 }

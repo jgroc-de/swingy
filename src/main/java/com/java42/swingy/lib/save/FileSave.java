@@ -31,9 +31,13 @@ public class FileSave extends HeroDAO {
 				}
 			}
 			List<String> heroesLine = Files.readAllLines(path);
-			for (String line : heroesLine) {
-				Hero hero = HeroFactory.createHeroFromCSV(line.split(","));
-				heroes.add(hero);
+			try {
+				for (String line : heroesLine) {
+					Hero hero = HeroFactory.createHeroFromCSV(line.split(","));
+					heroes.add(hero);
+				}
+			} catch (Exception e) {
+
 			}
 		} catch (IOException e) {
 			throw new Exception("cant read file");

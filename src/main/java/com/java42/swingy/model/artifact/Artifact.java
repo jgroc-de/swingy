@@ -57,6 +57,10 @@ public abstract class Artifact {
 		return quality + " " + type + " (level: " + level + ") ";
 	}
 
+	public String toCsv() {
+		return quality.getValue() + "," + level;
+	}
+
 	public String getDescription() {
 		return toString() + getStats();
 	}

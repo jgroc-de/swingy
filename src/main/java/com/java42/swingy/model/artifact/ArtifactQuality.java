@@ -13,6 +13,15 @@ public enum ArtifactQuality {
 		return value;
 	}
 
+	public static ArtifactQuality getArtifactByValue(int value) throws Exception {
+		for (ArtifactQuality quality : ArtifactQuality.values()) {
+			if (quality.getValue() == value) {
+				return quality;
+			}
+		}
+		throw new Exception("not a valid quality");
+	}
+
 	public static ArtifactQuality getRandom() {
 		for (ArtifactQuality quality : ArtifactQuality.values()) {
 			if (Math.random() > 0.33) {
