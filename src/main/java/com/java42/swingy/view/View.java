@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.java42.swingy.controller.GamePlayController;
 import com.java42.swingy.controller.MenuController;
-import com.java42.swingy.lib.map.GameMap;
+import com.java42.swingy.lib.map.SquareMap;
 import com.java42.swingy.model.artifact.Artifact;
 import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.model.vilain.Vilain;
@@ -16,9 +16,11 @@ public interface View {
 
 	public void printMap(int level, Hero hero, List<Vilain> vilains);
 
-	public void printEndOfGame(boolean victory);
+	public void printVictory(Hero hero);
 
-	public void setGameMap(GameMap gameMap);
+	public void printGameOver();
+
+	public void setGameMap(SquareMap gameMap);
 
 	public void printRun();
 

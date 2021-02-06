@@ -1,7 +1,7 @@
 package com.java42.swingy.controller;
 
 import com.java42.swingy.lib.XPManager.XPManager;
-import com.java42.swingy.lib.map.GameMap;
+import com.java42.swingy.lib.map.SquareMap;
 import com.java42.swingy.lib.save.HeroDAO;
 import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.view.View;
@@ -11,7 +11,7 @@ public class Swingy {
 	MenuController menu;
 	GamePlayController play;
 
-	public Swingy(View view, GameMap gameMap, HeroDAO save, XPManager xpManager) {
+	public Swingy(View view, SquareMap gameMap, HeroDAO save, XPManager xpManager) {
 		this.menuView = view;
 		view.setGameMap(gameMap);
 		menu = new MenuController(view, save, this);

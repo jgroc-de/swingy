@@ -6,37 +6,51 @@ import com.java42.swingy.model.LivingCreature;
 import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.model.vilain.Vilain;
 
-public class SquareMap implements GameMap {
-	public int getMapSize(int level) {
-		return (level - 1) * 5 + 10 - 1;
+public class SquareMap {
+	int mapSize;
+	List<Vilain> vilains;
+
+	public void setVilains(List<Vilain> vilains) {
+		this.vilains = vilains;
 	}
 
-	public boolean isOutOfMap(int level, int X, int Y) {
-		int size = getMapSize(level);
-		if (X <= 1 || X > size - 1) {
+	public List<Vilain> getVilains() {
+		return vilains;
+	}
+
+	public void setMapSize(int level) {
+		mapSize = (level - 1) * 5 + 10 - 1;
+	}
+
+	public int getMapSize() {
+		return mapSize;
+	}
+
+	public boolean isOutOfMap(int X, int Y) {
+		if (X <= 1 || X > mapSize - 1) {
 			return true;
 		}
-		if (Y <= 1 || Y > size - 1) {
+		if (Y <= 1 || Y > mapSize - 1) {
 			return true;
 		}
 		return false;
 	}
 
-	public void setInitialMapPosition(Hero hero, int size) {
-		int middle = (size + 1) / 2;
+	public void setInitialMapPosition(Hero hero) {
+		int middle = (mapSize + 1) / 2;
 
 		hero.setX(middle);
 		hero.setY(middle);
 	}
 
-	public int getNbOfVilains(int size) {
-		return (int) (Math.pow(size, 2) / 4);
+	public int getNbOfVilains() {
+		return (int) (Math.pow(mapSize, 2) / 4);
 	}
 
-	public void setVilainsPosition(List<Vilain> vilains, int size) {
+	public void setVilainsPosition() {
 		for (Vilain vilain : vilains) {
-			vilain.setX((int) (Math.random() * (size - 2) + 2));
-			vilain.setY((int) (Math.random() * (size - 2) + 2));
+			vilain.setX((int) (Math.random() * (mapSize - 2) + 2));
+			vilain.setY((int) (Math.random() * (mapSize - 2) + 2));
 		}
 	}
 
@@ -44,7 +58,7 @@ public class SquareMap implements GameMap {
 		return y == livingCreature.getY() && x == livingCreature.getX();
 	}
 
-	public boolean isVilainPosition(List<Vilain> vilains, int y, int x) {
+	public boolean isVilainPosition(int y, int x) {
 		for (Vilain vilain : vilains) {
 			if (isLivingPosition(vilain, y, x)) {
 				return true;
@@ -53,7 +67,7 @@ public class SquareMap implements GameMap {
 		return false;
 	}
 
-	public Vilain getVilainFromPosition(List<Vilain> vilains, int X, int Y) throws Exception {
+	public Vilain getVilainFromPosition(int X, int Y) throws Exception {
 		for (Vilain vilain : vilains) {
 			if (isLivingPosition(vilain, X, Y)) {
 				return vilain;

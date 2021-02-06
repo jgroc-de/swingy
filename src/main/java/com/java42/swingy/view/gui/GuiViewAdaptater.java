@@ -4,11 +4,12 @@ import java.util.List;
 
 import com.java42.swingy.controller.GamePlayController;
 import com.java42.swingy.controller.MenuController;
-import com.java42.swingy.lib.map.GameMap;
+import com.java42.swingy.lib.map.SquareMap;
 import com.java42.swingy.model.artifact.Artifact;
 import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.model.vilain.Vilain;
 import com.java42.swingy.view.View;
+import com.java42.swingy.view.gui.gameboard.GuiGame;
 import com.java42.swingy.view.gui.menu.GuiMenu;
 
 public class GuiViewAdaptater implements View {
@@ -34,18 +35,20 @@ public class GuiViewAdaptater implements View {
 
 	@Override
 	public void printMap(int level, Hero hero, List<Vilain> vilains) {
-		// TODO Auto-generated method stub
+		game.printMap(level, hero, vilains);
 
 	}
 
 	@Override
-	public void printEndOfGame(boolean victory) {
+	public void printVictory(Hero hero) {
 		// TODO Auto-generated method stub
+	}
 
+	public void printGameOver() {
 	}
 
 	@Override
-	public void setGameMap(GameMap gameMap) {
+	public void setGameMap(SquareMap gameMap) {
 		// TODO Auto-generated method stub
 
 	}
@@ -117,6 +120,6 @@ public class GuiViewAdaptater implements View {
 	}
 
 	public void setGameController(GamePlayController controller) {
-
+		game.setGameController(controller);
 	}
 }

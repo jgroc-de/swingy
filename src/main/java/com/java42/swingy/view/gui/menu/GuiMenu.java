@@ -10,7 +10,7 @@ import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.view.GameMessages;
 import com.java42.swingy.view.gui.SwingyFrame;
 import com.java42.swingy.view.gui.menu.panels.HeroCreationPanel;
-import com.java42.swingy.view.gui.menu.panels.MainMenuPanel;
+import com.java42.swingy.view.gui.menu.panels.MenuPanel;
 import com.java42.swingy.view.gui.menu.panels.SelectionListPanel;
 
 public class GuiMenu {
@@ -29,7 +29,7 @@ public class GuiMenu {
 	public boolean menuActions() {
 		boolean heroIsSet = controller.isSetHero();
 		List<Hero> heroes = controller.getAllHeroes();
-		MainMenuPanel menu = new MainMenuPanel(this, heroIsSet, heroes.isEmpty());
+		MenuPanel menu = new MenuPanel(this, heroIsSet, heroes.isEmpty());
 
 		frame.setContentPane(menu);
 		frame.setVisible(true);
@@ -64,20 +64,23 @@ public class GuiMenu {
 	}
 
 	public void printHero(Hero hero) {
+		// do nothing
 	}
 
 	public void play() {
 		controller.startPlaying();
 	}
 
-	public void startPlaying(Hero hero) {
-	}
-
 	public void exit() {
 		controller.quit();
 	}
 
+	public void startPlaying(Hero hero) {
+		// do nothing
+	}
+
 	public void quit() {
+		// do nothing
 	}
 
 	public void printHeroListIsEmpty() {

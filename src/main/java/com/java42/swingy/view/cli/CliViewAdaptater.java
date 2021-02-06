@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.java42.swingy.controller.GamePlayController;
 import com.java42.swingy.controller.MenuController;
-import com.java42.swingy.lib.map.GameMap;
+import com.java42.swingy.lib.map.SquareMap;
 import com.java42.swingy.model.artifact.Artifact;
 import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.model.vilain.Vilain;
@@ -37,11 +37,15 @@ public class CliViewAdaptater implements View {
 		gameView.printMap(level, hero, vilains);
 	}
 
-	public void printEndOfGame(boolean victory) {
-		gameView.printEndOfGame(victory);
+	public void printVictory(Hero hero) {
+		gameView.victory(hero);
 	}
 
-	public void setGameMap(GameMap gameMap) {
+	public void printGameOver() {
+		gameView.gameOver();
+	}
+
+	public void setGameMap(SquareMap gameMap) {
 		gameView.setGameMap(gameMap);
 	}
 

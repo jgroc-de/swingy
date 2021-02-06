@@ -3,7 +3,7 @@ package com.java42.swingy.controller;
 import java.util.List;
 
 import com.java42.swingy.lib.XPManager.XPManager;
-import com.java42.swingy.lib.map.GameMap;
+import com.java42.swingy.lib.map.SquareMap;
 import com.java42.swingy.lib.save.HeroDAO;
 import com.java42.swingy.model.artifact.Artifact;
 import com.java42.swingy.model.artifact.ArtifactFactory;
@@ -13,14 +13,14 @@ import com.java42.swingy.model.vilain.VilainFactory;
 import com.java42.swingy.view.View;
 
 public class GamePlayController {
-	GameMap gameMap;
+	SquareMap gameMap;
 	View view;
 	HeroDAO save;
 	XPManager xpManager;
 	Swingy controller;
 	Hero hero;
 
-	public GamePlayController(GameMap gameMap, View view, HeroDAO save, XPManager xpManager, Swingy controller) {
+	public GamePlayController(SquareMap gameMap, View view, HeroDAO save, XPManager xpManager, Swingy controller) {
 		this.gameMap = gameMap;
 		this.view = view;
 		this.save = save;
@@ -31,31 +31,35 @@ public class GamePlayController {
 
 	public void playingAction(Hero hero, int level) {
 		boolean victory = false;
-		int mapSize = gameMap.getMapSize(level);
-		int nbOfVilains = gameMap.getNbOfVilains(mapSize);
+		gameMap.setMapSize(level);
+		int nbOfVilains = gameMap.getNbOfVilains();
 		List<Vilain> vilains = VilainFactory.getVilains(nbOfVilains, level);
+		gameMap.setVilains(vilains);
 
 		this.hero = hero;
 		hero.resetLostHP();
-		gameMap.setInitialMapPosition(hero, mapSize);
-		gameMap.setVilainsPosition(vilains, mapSize);
-		while (victory == false && hero.getHP() > 0) {
-			view.printMap(mapSize, hero, vilains);
-			view.promptForDirection();
-			if (gameMap.isOutOfMap(level, hero.getX(), hero.getY())) {
-				victory = true;
-			} else if (gameMap.isVilainPosition(vilains, hero.getY(), hero.getX())) {
-				hero = fightAction(hero, vilains);
-			}
-		}
-		view.printEndOfGame(victory);
-		if (hero.getHP() <= 0) {
+		gameMap.setInitialMapPosition(hero);
+		gameMap.setVilainsPosition();
+		switchPlay();
+	}
+
+	public void switchPlay() {
+		if (gameMap.isOutOfMap(hero.getX(), hero.getY())) {
+			hero.resetLostHP();
+			save.saveHero(hero);
+			view.printVictory(hero);
+		} else if (gameMap.isVilainPosition(hero.getY(), hero.getX())) {
+			hero = fightAction(hero, gameMap.getVilains());
+		} else if (hero.getHP() <= 0) {
 			save.deleteHero(hero);
 			hero = null;
+			view.printGameOver();
 		} else {
-			hero.resetLostHP();
+			view.printMap(gameMap.getMapSize(), hero, null);
 		}
-		save.saveHero(hero);
+	}
+
+	public void menu(Hero hero) {
 		controller.menu(hero);
 	}
 
@@ -65,7 +69,7 @@ public class GamePlayController {
 
 	private Hero fightAction(Hero hero, List<Vilain> vilains) {
 		try {
-			Vilain vilain = gameMap.getVilainFromPosition(vilains, hero.getY(), hero.getX());
+			Vilain vilain = gameMap.getVilainFromPosition(hero.getY(), hero.getX());
 			if (view.promptForRun(vilain) && Math.random() > 0.5) {
 				view.printRun();
 				return hero;

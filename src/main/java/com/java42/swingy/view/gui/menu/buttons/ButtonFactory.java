@@ -1,5 +1,6 @@
 package com.java42.swingy.view.gui.menu.buttons;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Insets;
 
@@ -18,6 +19,7 @@ import com.java42.swingy.view.gui.menu.listener.SelectHeroListener;
 public class ButtonFactory {
 	public static MenuButton getButton(GuiMenu menu, MenuItem type) {
 		MenuButton button = new MenuButton(type.getLabel());
+		button.setBackground(Color.red);
 		switch (type) {
 		case HERO_CREATION:
 			button.addActionListener(new CreateHeroListener(menu));

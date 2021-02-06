@@ -3,7 +3,7 @@ package com.java42.swingy.view.cli;
 import java.util.List;
 
 import com.java42.swingy.controller.GamePlayController;
-import com.java42.swingy.lib.map.GameMap;
+import com.java42.swingy.lib.map.SquareMap;
 import com.java42.swingy.model.artifact.Artifact;
 import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.model.vilain.Vilain;
@@ -11,10 +11,10 @@ import com.java42.swingy.model.vilain.Vilain;
 public class CliGame {
 
 	GamePlayController controller;
-	GameMap gameMap;
+	SquareMap gameMap;
 	boolean isVisible = true;
 
-	public void setGameMap(GameMap gameMap) {
+	public void setGameMap(SquareMap gameMap) {
 		this.gameMap = gameMap;
 	}
 
@@ -35,7 +35,7 @@ public class CliGame {
 			while (x++ < mapSize) {
 				if (gameMap.isLivingPosition(hero, modifiedY, x)) {
 					line += ":)";
-				} else if (gameMap.isVilainPosition(vilains, modifiedY, x)) {
+				} else if (gameMap.isVilainPosition(modifiedY, x)) {
 					if (isVisible) {
 						line += "><";
 					} else {
@@ -52,15 +52,18 @@ public class CliGame {
 			}
 			System.out.println(line);
 		}
+		controller.switchPlay();
 
 	}
 
-	public void printEndOfGame(boolean victory) {
-		if (victory) {
-			System.out.println("\n\t*** Victory !!! ***");
-		} else {
-			System.out.println("\n\t+++ Game Over +++");
-		}
+	public void victory(Hero hero) {
+		System.out.println("\n\t*** Victory !!! ***");
+		controller.menu(hero);
+	}
+
+	public void gameOver() {
+		System.out.println("\n\t+++ Game Over +++");
+		controller.menu(null);
 	}
 
 	public void printRun() {

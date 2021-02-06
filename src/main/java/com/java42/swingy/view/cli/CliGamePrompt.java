@@ -49,6 +49,7 @@ public class CliGamePrompt {
 		}
 
 		controller.moveHero(direction.getX(), direction.getY());
+		controller.switchPlay();
 	}
 
 }
