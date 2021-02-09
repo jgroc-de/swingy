@@ -1,7 +1,5 @@
 package com.java42.swingy.view.gui;
 
-import java.util.List;
-
 import com.java42.swingy.controller.GamePlayController;
 import com.java42.swingy.controller.MenuController;
 import com.java42.swingy.lib.map.SquareMap;
@@ -23,9 +21,8 @@ public class GuiViewAdaptater implements View {
 	}
 
 	@Override
-	public boolean promptForRun(Vilain vilain) {
+	public void promptForRun(Hero hero, Vilain vilain) {
 		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -34,8 +31,8 @@ public class GuiViewAdaptater implements View {
 	}
 
 	@Override
-	public void printMap(int level, Hero hero, List<Vilain> vilains) {
-		game.printMap(level, hero, vilains);
+	public void printMap(Hero hero) {
+		game.printMap(hero);
 
 	}
 
@@ -55,37 +52,7 @@ public class GuiViewAdaptater implements View {
 	}
 
 	@Override
-	public void printRun() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void printFightBegin(Hero hero, Vilain vilain) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void printFight(int turn, Hero hero, Vilain vilain, int heroHP, int vilainHP) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void printFightOutCome(Hero hero, Vilain vilain) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void printArtifactDropping(Artifact artifact) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void printXPgot(Hero hero, int XP) {
+	public void printFight(String summary, Hero hero, Vilain vilain, Artifact artifact, int XPWon) {
 		// TODO Auto-generated method stub
 
 	}

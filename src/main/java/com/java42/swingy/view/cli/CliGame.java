@@ -1,15 +1,31 @@
 package com.java42.swingy.view.cli;
 
-import java.util.List;
-
 import com.java42.swingy.controller.GamePlayController;
+import com.java42.swingy.lib.IO.Misc;
+import com.java42.swingy.lib.map.Direction;
 import com.java42.swingy.lib.map.SquareMap;
 import com.java42.swingy.model.artifact.Artifact;
 import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.model.vilain.Vilain;
+import com.java42.swingy.view.GameMessages;
 
 public class CliGame {
 
+	public enum fightChoice {
+		RUN(1), FIGHT(2);
+
+		int value;
+
+		fightChoice(int i) {
+			this.value = i;
+		}
+
+		public int getValue() {
+			return value;
+		}
+	};
+
+	Misc IOManager = new Misc();
 	GamePlayController controller;
 	SquareMap gameMap;
 	boolean isVisible = true;
@@ -18,7 +34,49 @@ public class CliGame {
 		this.gameMap = gameMap;
 	}
 
-	public void printMap(int mapSize, Hero hero, List<Vilain> vilains) {
+	public void promptForRun(Hero hero, Vilain vilain) {
+		int choice;
+		boolean canRun = Math.random() > 0.5;
+
+		System.out.println(GameMessages.FACINGVILAIN + vilain.getSummary());
+		System.out.println("CHOOSE RUN OR FIGHT\n\t[" + fightChoice.RUN.getValue() + "] " + GameMessages.RUN + " ["
+				+ fightChoice.FIGHT.getValue() + "] " + GameMessages.FIGHT);
+		choice = IOManager.getNextNumber();
+		if (choice == fightChoice.RUN.getValue() && canRun) {
+			System.out.println("\n\t--- RUN ---\n");
+			controller.switchPlay();
+		} else if (choice == fightChoice.FIGHT.getValue() || canRun == false) {
+			controller.fight(hero, vilain);
+		} else {
+			promptForRun(hero, vilain);
+		}
+	}
+
+	public void promptForDirection() {
+		int userInput;
+		Direction direction = Direction.NORTH;
+		boolean notValid = true;
+
+		while (notValid) {
+			System.out.println(GameMessages.DIRECTION.toString());
+			for (Direction tmpDirection : Direction.values()) {
+				System.out.println("\t[" + tmpDirection.getValue() + "]: " + tmpDirection.getLabel());
+			}
+			userInput = IOManager.getNextNumber();
+			for (Direction tmpDirection : Direction.values()) {
+				if (tmpDirection.getValue() == userInput) {
+					direction = tmpDirection;
+					notValid = false;
+					break;
+				}
+			}
+		}
+
+		controller.moveHero(direction.getX(), direction.getY());
+	}
+
+	public void printMap(Hero hero) {
+		int mapSize = gameMap.getMapSize();
 		int y = 0;
 		int x = 0;
 		int modifiedY;
@@ -66,50 +124,26 @@ public class CliGame {
 		controller.menu(null);
 	}
 
-	public void printRun() {
-		System.out.println("\n\t--- RUN ---\n");
-	}
-
-	public void printFightBegin(Hero hero, Vilain vilain) {
+	public void printFight(String summary, Hero hero, Vilain vilain, Artifact artifact, int XPWon) {
 		System.out.println("\n\txxx FIGHT xxx\n");
-	}
-
-	public void printFightOutCome(Hero hero, Vilain vilain) {
+		IOManager.println(summary);
 		if (hero.getHP() > 0) {
 			System.out.println("\n\t*** YOU WON !! ***\n");
+			if (artifact != null) {
+				System.out.println("Vilain drop an artifact!\n\t" + artifact.getDescription());
+			}
+			System.out.println("You got " + XPWon + " XP");
+			System.out.println(hero.getSummary());
+			printMap(hero);
 		} else {
 			System.out.println("\n\t+++ YOU DIED !! +++\n");
 			System.out.println(vilain.getSummary());
+			controller.switchPlay();
 		}
-	}
-
-	public void printFight(int turn, Hero hero, Vilain vilain, int heroLostHP, int vilainLostHP) {
-		if (vilainLostHP < 0) {
-			vilainLostHP = 0;
-		}
-		if (heroLostHP < 0) {
-			heroLostHP = 0;
-		}
-		System.out.println("\n\t-- Turn " + turn + " -- \n");
-		System.out.println("hero lost " + heroLostHP + " HP");
-		System.out.println("vilain lost " + vilainLostHP + " HP");
-		System.out.println();
-		System.out.println(hero.getSummary());
-		System.out.println(vilain.getSummary());
-	}
-
-	public void printArtifactDropping(Artifact artifact) {
-		System.out.println("Vilain drop an artifact!\n\t" + artifact.getDescription());
-	}
-
-	public void printXPgot(Hero hero, int XP) {
-		System.out.println("You got " + XP + " XP");
-		System.out.println(hero.getSummary());
 	}
 
 	public void setGameController(GamePlayController controller) {
 		this.controller = controller;
-
 	}
 
 }

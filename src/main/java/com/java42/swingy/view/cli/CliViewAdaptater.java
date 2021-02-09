@@ -1,7 +1,5 @@
 package com.java42.swingy.view.cli;
 
-import java.util.List;
-
 import com.java42.swingy.controller.GamePlayController;
 import com.java42.swingy.controller.MenuController;
 import com.java42.swingy.lib.map.SquareMap;
@@ -13,64 +11,50 @@ import com.java42.swingy.view.View;
 public class CliViewAdaptater implements View {
 	CliMenu menuView;
 	CliGame gameView;
-	CliGamePrompt gamePrompt;
 
 	public CliViewAdaptater() {
 		menuView = new CliMenu();
 		gameView = new CliGame();
-		gamePrompt = new CliGamePrompt();
 	}
 
+	@Override
 	public void setMenuController(MenuController controller) {
 		menuView.setMenuController(controller);
 	}
 
-	public boolean promptForRun(Vilain vilain) {
-		return gamePrompt.promptForRun(vilain);
+	@Override
+	public void promptForRun(Hero hero, Vilain vilain) {
+		gameView.promptForRun(hero, vilain);
 	}
 
+	@Override
 	public void promptForDirection() {
-		gamePrompt.promptForDirection();
+		gameView.promptForDirection();
 	}
 
-	public void printMap(int level, Hero hero, List<Vilain> vilains) {
-		gameView.printMap(level, hero, vilains);
+	@Override
+	public void printMap(Hero hero) {
+		gameView.printMap(hero);
 	}
 
+	@Override
 	public void printVictory(Hero hero) {
 		gameView.victory(hero);
 	}
 
+	@Override
 	public void printGameOver() {
 		gameView.gameOver();
 	}
 
+	@Override
 	public void setGameMap(SquareMap gameMap) {
 		gameView.setGameMap(gameMap);
 	}
 
-	public void printRun() {
-		gameView.printRun();
-	}
-
-	public void printFightBegin(Hero hero, Vilain vilain) {
-		gameView.printFightBegin(hero, vilain);
-	}
-
-	public void printFight(int turn, Hero hero, Vilain vilain, int heroHP, int vilainHP) {
-		gameView.printFight(turn, hero, vilain, heroHP, vilainHP);
-	}
-
-	public void printFightOutCome(Hero hero, Vilain vilain) {
-		gameView.printFightOutCome(hero, vilain);
-	}
-
-	public void printArtifactDropping(Artifact artifact) {
-		gameView.printArtifactDropping(artifact);
-	}
-
-	public void printXPgot(Hero hero, int XP) {
-		gameView.printXPgot(hero, XP);
+	@Override
+	public void printFight(String summary, Hero hero, Vilain vilain, Artifact artifact, int XPWon) {
+		gameView.printFight(summary, hero, vilain, artifact, XPWon);
 	}
 
 	@Override
@@ -78,18 +62,22 @@ public class CliViewAdaptater implements View {
 		return menuView.promptForMenuAction();
 	}
 
+	@Override
 	public void splashScreen() {
 		menuView.splashScreen();
 	}
 
+	@Override
 	public void quit() {
 		menuView.quit();
 	}
 
+	@Override
 	public void printHero(Hero hero) {
 		menuView.printHero(hero);
 	}
 
+	@Override
 	public void startPlaying(Hero hero) {
 		menuView.startPlaying(hero);
 	}
@@ -98,7 +86,8 @@ public class CliViewAdaptater implements View {
 		menuView.printHeroListIsEmpty();
 	}
 
+	@Override
 	public void setGameController(GamePlayController controller) {
-		gamePrompt.setGameController(controller);
+		gameView.setGameController(controller);
 	}
 }

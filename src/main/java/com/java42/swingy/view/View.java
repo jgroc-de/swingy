@@ -1,7 +1,5 @@
 package com.java42.swingy.view;
 
-import java.util.List;
-
 import com.java42.swingy.controller.GamePlayController;
 import com.java42.swingy.controller.MenuController;
 import com.java42.swingy.lib.map.SquareMap;
@@ -10,11 +8,11 @@ import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.model.vilain.Vilain;
 
 public interface View {
-	public boolean promptForRun(Vilain vilain);
+	public void promptForRun(Hero hero, Vilain vilain);
 
 	public void promptForDirection();
 
-	public void printMap(int level, Hero hero, List<Vilain> vilains);
+	public void printMap(Hero hero);
 
 	public void printVictory(Hero hero);
 
@@ -22,17 +20,7 @@ public interface View {
 
 	public void setGameMap(SquareMap gameMap);
 
-	public void printRun();
-
-	public void printFightBegin(Hero hero, Vilain vilain);
-
-	public void printFight(int turn, Hero hero, Vilain vilain, int heroHP, int vilainHP);
-
-	public void printFightOutCome(Hero hero, Vilain vilain);
-
-	public void printArtifactDropping(Artifact artifact);
-
-	public void printXPgot(Hero hero, int XP);
+	public void printFight(String summary, Hero hero, Vilain vilain, Artifact artifact, int XPWon);
 
 	public boolean promptForMenuAction();
 

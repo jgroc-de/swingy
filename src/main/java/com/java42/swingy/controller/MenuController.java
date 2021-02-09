@@ -11,14 +11,14 @@ import com.java42.swingy.view.View;
 public class MenuController {
 	View view;
 	HeroDAO heroDAO;
-	Swingy controller;
+	Swingy mainController;
 	Hero hero;
 
 	public MenuController(View view, HeroDAO save, Swingy controller) {
 		this.view = view;
 		view.setMenuController(this);
 		this.heroDAO = save;
-		this.controller = controller;
+		this.mainController = controller;
 	}
 
 	public void menuAction(Hero hero) {
@@ -33,9 +33,10 @@ public class MenuController {
 	public void startPlaying() {
 		view.startPlaying(hero);
 		if (hero != null) {
-			controller.play(hero);
+			mainController.play(hero);
+		} else {
+			menuAction(hero);
 		}
-		menuAction(hero);
 	}
 
 	public void quit() {

@@ -40,7 +40,7 @@ public class GamePlayController {
 		hero.resetLostHP();
 		gameMap.setInitialMapPosition(hero);
 		gameMap.setVilainsPosition();
-		switchPlay();
+		view.printMap(hero);
 	}
 
 	public void switchPlay() {
@@ -48,14 +48,14 @@ public class GamePlayController {
 			hero.resetLostHP();
 			save.saveHero(hero);
 			view.printVictory(hero);
-		} else if (gameMap.isVilainPosition(hero.getY(), hero.getX())) {
-			hero = fightAction(hero, gameMap.getVilains());
 		} else if (hero.getHP() <= 0) {
 			save.deleteHero(hero);
 			hero = null;
 			view.printGameOver();
+		} else if (gameMap.isVilainPosition(hero.getY(), hero.getX())) {
+			fightAction(hero, gameMap.getVilains());
 		} else {
-			view.printMap(gameMap.getMapSize(), hero, null);
+			view.promptForDirection();
 		}
 	}
 
@@ -65,54 +65,59 @@ public class GamePlayController {
 
 	public void moveHero(int X, int Y) {
 		hero.move(X, Y);
+		view.printMap(hero);
 	}
 
-	private Hero fightAction(Hero hero, List<Vilain> vilains) {
+	private void fightAction(Hero hero, List<Vilain> vilains) {
 		try {
 			Vilain vilain = gameMap.getVilainFromPosition(hero.getY(), hero.getX());
-			if (view.promptForRun(vilain) && Math.random() > 0.5) {
-				view.printRun();
-				return hero;
-			}
-
-			return fight(hero, vilain, vilains);
+			view.promptForRun(hero, vilain);
 		} catch (Exception e) {
 
 		}
-		return hero;
 	}
 
-	private Hero fight(Hero hero, Vilain vilain, List<Vilain> vilains) {
+	public void fight(Hero hero, Vilain vilain) {
 		Artifact artifact = null;
+		List<Vilain> vilains = gameMap.getVilains();
+		String summary;
 
-		view.printFightBegin(hero, vilain);
-		currentFight(hero, vilain);
-		view.printFightOutCome(hero, vilain);
+		summary = currentFight(hero, vilain);
 		if (hero.getHP() > 0) {
 			if (Math.random() > 0.5) {
 				artifact = ArtifactFactory.getRandomArtifact(vilain.getLevel());
-				view.printArtifactDropping(artifact);
 				hero.setArtifact(artifact);
 			}
 			vilains.remove(vilain);
 			xpManager.addXP(hero, vilain);
-			view.printXPgot(hero, xpManager.getXP(vilain));
 		}
-
-		return hero;
+		this.hero = hero;
+		view.printFight(summary, hero, vilain, artifact, xpManager.getXP(vilain));
 	}
 
-	private void currentFight(Hero hero, Vilain vilain) {
+	private String currentFight(Hero hero, Vilain vilain) {
 		int heroHPlost, vilainHPlost;
-		int i = 0;
-		while (hero.getHP() > 0 && vilain.getHP() > 0 && i < 10) {
+		int turn = 0;
+		String summary = "";
+		while (hero.getHP() > 0 && vilain.getHP() > 0 && turn < 10) {
 			vilainHPlost = hero.getAttack() * (int) (Math.random() + 0.75)
 					- vilain.getDefense() * (int) (Math.random() + 0.4);
 			vilain.addLostHP(vilainHPlost);
 			heroHPlost = vilain.getAttack() * (int) (Math.random() + 0.5)
 					- hero.getDefense() * (int) (Math.random() + 0.75);
 			hero.addLostHP(heroHPlost);
-			view.printFight(++i, hero, vilain, heroHPlost, vilainHPlost);
+			if (vilainHPlost < 0) {
+				vilainHPlost = 0;
+			}
+			if (heroHPlost < 0) {
+				heroHPlost = 0;
+			}
+			summary += "\n\t-- Turn " + turn + " -- \n\n";
+			summary += "hero lost " + heroHPlost + " HP\n";
+			summary += "vilain lost " + vilainHPlost + " HP\n\n";
+			summary += hero.getSummary() + "\n" + vilain.getSummary() + "\n";
 		}
+
+		return summary;
 	}
 }
