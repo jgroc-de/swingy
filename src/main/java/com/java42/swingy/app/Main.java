@@ -14,7 +14,7 @@ import com.java42.swingy.view.ViewType;
 public class Main {
 
 	public static void main(String[] args) {
-		View view = ViewFactory.getView(ViewType.CLI);
+		View view = ViewFactory.getView(ViewType.GUI);
 		SquareMap gameMap = GameMapFactory.getGameMap();
 		HeroDAO save = SaveFactory.getSaveMean("save.txt");
 		XPManager xpManager = XPManagerFactory.getXPManager();

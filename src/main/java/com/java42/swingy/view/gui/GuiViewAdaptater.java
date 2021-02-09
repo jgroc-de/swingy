@@ -9,7 +9,7 @@ import com.java42.swingy.model.artifact.Artifact;
 import com.java42.swingy.model.hero.Hero;
 import com.java42.swingy.model.vilain.Vilain;
 import com.java42.swingy.view.View;
-import com.java42.swingy.view.gui.gameboard.GuiGame;
+import com.java42.swingy.view.gui.gameBoard.GuiGame;
 import com.java42.swingy.view.gui.menu.GuiMenu;
 
 public class GuiViewAdaptater implements View {
@@ -44,6 +44,7 @@ public class GuiViewAdaptater implements View {
 		// TODO Auto-generated method stub
 	}
 
+	@Override
 	public void printGameOver() {
 	}
 
@@ -119,6 +120,7 @@ public class GuiViewAdaptater implements View {
 		menu.setMenuController(controller);
 	}
 
+	@Override
 	public void setGameController(GamePlayController controller) {
 		game.setGameController(controller);
 	}
