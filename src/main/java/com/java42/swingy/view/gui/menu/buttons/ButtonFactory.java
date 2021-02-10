@@ -1,6 +1,8 @@
 package com.java42.swingy.view.gui.menu.buttons;
 
 import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Insets;
 
@@ -44,23 +46,29 @@ public class ButtonFactory {
 		JPanel panel;
 		GridLayout layout;
 		Insets margin = new Insets(10, 10, 10, 10);
-		layout = new GridLayout(2, 2, 5, 5);
+		layout = new GridLayout(2, 2, 10, 10);
 		panel = new JPanel();
 		panel.setOpaque(false);
 		panel.setLayout(layout);
 
 		button.addActionListener(new HeroSelectedListener(menu, index));
+		panel.setPreferredSize(new Dimension(400, 200));
 		panel.add(button);
-		panel.add(getNewTextArea(hero.getStats(), margin));
 		panel.add(getNewTextArea(hero.getBasicInfo(), margin));
 		panel.add(getNewTextArea(hero.getEquipement(), margin));
+		panel.add(getNewTextArea(hero.getStats(), margin));
 
 		return panel;
 
 	}
 
-	static private JTextArea getNewTextArea(String text, Insets margin) {
+	static public JTextArea getNewTextArea(String text, Insets margin) {
 		JTextArea textArea = new JTextArea(text);
+		Font font = new Font("Courier", Font.PLAIN, 12);
+
+		textArea.setForeground(Color.red);
+		textArea.setFont(font);
+		textArea.setOpaque(false);
 		textArea.setEditable(false);
 		textArea.setMargin(margin);
 		return textArea;

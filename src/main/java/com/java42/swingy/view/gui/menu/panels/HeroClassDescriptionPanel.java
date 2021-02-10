@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
 import com.java42.swingy.model.hero.HeroType;
+import com.java42.swingy.view.gui.menu.buttons.ButtonFactory;
 
 public class HeroClassDescriptionPanel extends JPanel {
 	/**
@@ -35,15 +36,13 @@ public class HeroClassDescriptionPanel extends JPanel {
 		}
 	}
 
+	@Override
 	public void paintComponent(Graphics g) {
 		setNewTextArea(heroType.getStats(), margin);
 		g.setColor(Color.white);
 	}
 
 	private void setNewTextArea(String text, Insets margin) {
-		textArea = new JTextArea(text);
-		textArea.setEditable(false);
-		textArea.setMargin(margin);
-		add(textArea);
+		add(ButtonFactory.getNewTextArea(text, margin));
 	}
 }

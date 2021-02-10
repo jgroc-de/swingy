@@ -41,7 +41,7 @@ public class MainPanel extends JPanel {
 			remove(leftPanel);
 		}
 		leftPanel = panel;
-		add(panel, BorderLayout.EAST);
+		add(panel, BorderLayout.WEST);
 	}
 
 	public void setRightPanel(Container panel) {
@@ -49,7 +49,7 @@ public class MainPanel extends JPanel {
 			remove(rightPanel);
 		}
 		rightPanel = panel;
-		add(panel, BorderLayout.WEST);
+		add(panel, BorderLayout.EAST);
 	}
 
 	public void setTitle() {

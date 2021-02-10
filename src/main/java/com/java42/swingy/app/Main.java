@@ -17,7 +17,7 @@ public class Main {
 
 	public static void main(String[] args) {
 		try {
-			View view = ViewFactory.getView(ViewType.CLI);
+			View view = ViewFactory.getView(ViewType.GUI);
 			SquareMap gameMap = GameMapFactory.getGameMap();
 			HeroDAO save = SaveFactory.getSaveMean("save.txt");
 			XPManager xpManager = XPManagerFactory.getXPManager();

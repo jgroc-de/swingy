@@ -2,3 +2,6 @@
 1,aiueauieauie,1,1,0,1,0,1,0,1,0,
 2,bpo,4,3,150,1,2,1,0,2,3,
 3,aieuaiea,3,6,15100,2,12,1,6,1,6,
+4,aieaueaei,1,1,0,1,0,1,0,1,0,
+5,aiueauieaiu,1,1,0,1,0,1,0,1,0,
+6,aiueauieaiueauieauieauieaueauieiue,1,1,0,1,0,1,0,1,0,

@@ -33,7 +33,6 @@ public class GuiViewAdaptater implements View {
 	@Override
 	public void printMap(Hero hero) {
 		game.printMap(hero);
-
 	}
 
 	@Override
@@ -47,8 +46,7 @@ public class GuiViewAdaptater implements View {
 
 	@Override
 	public void setGameMap(SquareMap gameMap) {
-		// TODO Auto-generated method stub
-
+		game.setGameMap(gameMap);
 	}
 
 	@Override

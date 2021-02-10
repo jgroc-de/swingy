@@ -91,9 +91,11 @@ public class HeroCreationPanel extends JPanel {
 		cancelButton.addActionListener(new CancelListener(menu));
 		southPanel.add(okButton);
 		southPanel.add(cancelButton);
+		southPanel.setOpaque(false);
 		add(southPanel, BorderLayout.SOUTH);
 	}
 
+	@Override
 	public void paintComponent(Graphics graphics) {
 		setBackground(graphics);
 	}
